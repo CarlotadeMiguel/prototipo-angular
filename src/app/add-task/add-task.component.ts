@@ -16,13 +16,6 @@ export class AddTaskComponent {
   };
 
   constructor() {
-    if (typeof window !== 'undefined') {
-      // Verificar si ya hay datos en localStorage y cargarlos si es así
-      const storedData = localStorage.getItem('datas');
-      if (storedData) {
-        this.userDetails = JSON.parse(storedData);
-      }
-    }
   }
 
   submitForm(form: any): void {
@@ -30,14 +23,12 @@ export class AddTaskComponent {
       console.log('Form data:', this.userDetails);
 
       // Obtener los datos previos del localStorage
-      let storedData: any[] = JSON.parse(localStorage.getItem('datas') || '[]');
+      let storedData: any[] = Object.values( JSON.parse(localStorage.getItem('datas') || '[]'));
 
       // Agregar los nuevos detalles del usuario
-      storedData.push(this.userDetails); 
-      if (typeof window !== 'undefined') {
-        // Guardar el array actualizado en localStorage
-        localStorage.setItem('datas', JSON.stringify(storedData));
-      }
+      storedData.push(this.userDetails);
+      // Guardar el array actualizado en localStorage
+      localStorage.setItem('datas', JSON.stringify(storedData));
       console.log('Data saved:', storedData);
     }
   }
