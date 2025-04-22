@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, OnInit,Inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { EditItemComponent } from '../edit-item/edit-item.component';
 
 @Component({
@@ -14,10 +14,12 @@ export class LocalStorageDataComponent implements OnInit {
   itemToEdit: any = null;
   isEditing: boolean = false;
   
-  constructor() { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
   
   ngOnInit(): void {
-    this.loadDataFromLocalStorage();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadDataFromLocalStorage();
+    }
   }
   
   loadDataFromLocalStorage(): void {
@@ -64,6 +66,8 @@ export class LocalStorageDataComponent implements OnInit {
   }
   
   updateLocalStorage(): void {
-    localStorage.setItem('datas', JSON.stringify(this.storedData));
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem('datas', JSON.stringify(this.storedData));
+    }
   }
 }
