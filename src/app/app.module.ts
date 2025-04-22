@@ -10,15 +10,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    AddTaskComponent,
-    LocalStorageDataComponent,
-    DeleteItemComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AddTaskComponent,
+    LocalStorageDataComponent,
+    DeleteItemComponent
   ],
   providers: [
     provideClientHydration(withEventReplay())

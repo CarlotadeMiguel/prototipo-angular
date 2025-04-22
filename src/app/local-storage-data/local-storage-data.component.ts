@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
- 
+import { CommonModule } from '@angular/common';
+import { DeleteItemComponent } from '../delete-item/delete-item.component';
+
 @Component({
+  standalone: true,
   selector: 'app-local-storage-data',
   templateUrl: './local-storage-data.component.html',
-  styleUrls: ['./local-storage-data.component.css']
+  styleUrls: ['./local-storage-data.component.css'],
+  imports: [CommonModule, DeleteItemComponent]
 })
+
 export class LocalStorageDataComponent implements OnInit {
   storedData: any[] = [];
  
