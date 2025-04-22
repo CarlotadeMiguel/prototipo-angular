@@ -1,21 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DeleteItemComponent } from '../delete-item/delete-item.component';
+import { EditItemComponent } from '../edit-item/edit-item.component';
 
 @Component({
   standalone: true,
   selector: 'app-local-storage-data',
   templateUrl: './local-storage-data.component.html',
   styleUrls: ['./local-storage-data.component.css'],
-  imports: [CommonModule, DeleteItemComponent]
+  imports: [CommonModule, EditItemComponent]
 })
-
 export class LocalStorageDataComponent implements OnInit {
   storedData: any[] = [];
- 
+  itemToEdit: any = null;
+  isEditing: boolean = false;
+  
   constructor() { }
- 
+  
   ngOnInit(): void {
+    this.loadDataFromLocalStorage();
+  }
+  
+  loadDataFromLocalStorage(): void {
     const storedData = localStorage.getItem('datas');
     if (storedData) {
       this.storedData = JSON.parse(storedData);
@@ -25,16 +30,40 @@ export class LocalStorageDataComponent implements OnInit {
       }
     }
   }
+  
   deleteItem(item: any): void {
     const index = this.storedData.indexOf(item);
     if (index !== -1) {
       this.storedData.splice(index, 1);
-      localStorage.setItem('datas', JSON.stringify(this.storedData));
+      this.updateLocalStorage();
     }
- 
+    
     // Limpiar localStorage si no quedan datos
     if (this.storedData.length === 0) {
       localStorage.removeItem('datas');
     }
+  }
+  
+  editItem(item: any): void {
+    this.itemToEdit = {...item}; // Clonar el item para evitar modificaciones directas
+    this.isEditing = true;
+  }
+  
+  updateItem(updatedItem: any): void {
+    const index = this.storedData.findIndex(item => item.id === updatedItem.id);
+    if (index !== -1) {
+      this.storedData[index] = updatedItem;
+      this.updateLocalStorage();
+      this.cancelEdit();
+    }
+  }
+  
+  cancelEdit(): void {
+    this.itemToEdit = null;
+    this.isEditing = false;
+  }
+  
+  updateLocalStorage(): void {
+    localStorage.setItem('datas', JSON.stringify(this.storedData));
   }
 }

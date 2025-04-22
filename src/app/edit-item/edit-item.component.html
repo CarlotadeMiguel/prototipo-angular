@@ -1,1 +1,13 @@
-<p>edit-item works!</p>
+<div class="edit-container">
+    <h3>Editar Tarea</h3>
+    <form [formGroup]="editForm" (ngSubmit)="saveChanges()">
+        <div class="form-group">
+            <label>Nombre de la tarea</label>
+            <input type="text" formControlName="name" required>
+          </div>
+      <div class="actions">
+        <button type="submit" [disabled]="!editForm.valid" class="btn btn-primary">Guardar</button>
+        <button type="button" (click)="cancel()" class="btn btn-secondary">Cancelar</button>
+      </div>
+    </form>
+  </div>

@@ -12,7 +12,8 @@ import { FormsModule } from '@angular/forms';
 
 export class AddTaskComponent {
   userDetails = {
-    name: ''
+    name: '',
+    id: Date.now()
   };
 
   constructor() {
@@ -26,7 +27,7 @@ export class AddTaskComponent {
       let storedData: any[] = Object.values( JSON.parse(localStorage.getItem('datas') || '[]'));
 
       // Agregar los nuevos detalles del usuario
-      storedData.push(this.userDetails);
+      storedData.push({...this.userDetails});
       // Guardar el array actualizado en localStorage
       localStorage.setItem('datas', JSON.stringify(storedData));
       console.log('Data saved:', storedData);

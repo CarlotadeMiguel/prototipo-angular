@@ -1,8 +1,30 @@
 <div class="container">
-    <h2 class="heading">Stored Tasks</h2>
-    <div *ngFor="let data of storedData" class="data-item">
-      <p class="data-name">Name: {{ data.name }}</p>
-      <app-delete-item [item]="data" (delete)="deleteItem($event)" class="delete-item"></app-delete-item>
+  <div *ngIf="!isEditing">
+    <h2>Tareas Almacenadas</h2>
+    
+    <div *ngIf="storedData.length === 0" class="alert alert-info">
+      No hay tareas almacenadas.
+    </div>
+    
+    <div *ngIf="storedData.length > 0" class="task-list">
+      <div *ngFor="let data of storedData" class="data-item">
+        <div class="task-content">
+          <p class="data-name">Name: {{ data.name }}</p>
+        </div>
+        
+        <div class="task-actions">
+          <button (click)="editItem(data)" class="btn btn-edit">Editar</button>
+          <button (click)="deleteItem(data)" class="btn btn-delete">Eliminar</button>
+        </div>
+      </div>
     </div>
   </div>
   
+  <div *ngIf="isEditing">
+    <app-edit-item 
+      [item]="itemToEdit" 
+      (itemUpdated)="updateItem($event)"
+      (cancelEdit)="cancelEdit()">
+    </app-edit-item>
+  </div>
+</div>
