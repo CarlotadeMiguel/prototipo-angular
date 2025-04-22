@@ -7,6 +7,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
 import { LocalStorageDataComponent } from './local-storage-data/local-storage-data.component';
 import { DeleteItemComponent } from './delete-item/delete-item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditItemComponent } from './edit-item/edit-item.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     AddTaskComponent,
     LocalStorageDataComponent,
-    DeleteItemComponent
+    DeleteItemComponent,
+    EditItemComponent
   ],
   providers: [
     provideClientHydration(withEventReplay())
