@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   
   {
-    path:'my-tasks ', component: LocalStorageDataComponent
+    path:'my-tasks', component: LocalStorageDataComponent
   },
   {
     path:'**', component:AddTaskComponent,pathMatch:'full'
